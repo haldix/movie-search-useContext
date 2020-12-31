@@ -1,0 +1,28 @@
+.movie-details {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  figure {
+    width: 50%;
+  }
+  img {
+    display: block;
+    width: 100%;
+  }
+
+  h2 {
+    margin-top: 1rem;
+  }
+
+  .date {
+    font-style: italic;
+    font-size: 0.85em;
+  }
+
+  .overview {
+    max-width: 70ch;
+    padding: 0 2rem 2rem;
+  }
+}

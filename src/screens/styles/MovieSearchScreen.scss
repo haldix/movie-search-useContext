@@ -1,0 +1,45 @@
+h2 {
+  margin-bottom: 1.2rem;
+}
+
+.form-search {
+  margin: 1rem 0 3rem 0;
+
+  .input-group {
+    width: 60%;
+    margin: 0 auto;
+    display: flex;
+  }
+  label {
+    text-align: center;
+    display: block;
+    font-size: 1.3rem;
+    font-weight: bold;
+    margin-bottom: 0.6rem;
+  }
+  input {
+    border: 1px solid gray;
+    flex: 1;
+    padding: 0.3em;
+    outline: none;
+
+    &:focus {
+      box-shadow: 3px 5px 6px rgba(0, 0, 0, 0.3);
+    }
+  }
+
+  button {
+    background-color: darkgreen;
+    color: #fff;
+    padding: 0 0.5em;
+    border: none;
+    outline: none;
+
+    &:focus {
+      box-shadow: 3px 5px 6px rgba(0, 0, 0, 0.3);
+    }
+    &:hover {
+      background-color: darken(darkgreen, 10%);
+    }
+  }
+}

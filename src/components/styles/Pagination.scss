@@ -1,0 +1,47 @@
+.pagination {
+  margin: 1.5rem;
+}
+
+.pag-list {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+}
+
+.pag-item {
+  border-radius: 2px;
+  margin-right: 0.1rem;
+
+  a {
+    border: 1px solid transparent;
+    border-radius: 2px;
+    display: block;
+    padding: 0.3em 0.5em;
+    font-weight: bold;
+
+    &:hover {
+      background-color: lightblue;
+    }
+
+    &.active {
+      background-color: #00f;
+      color: #fff;
+
+      &:hover {
+        background-color: darken(#00f, 12%);
+      }
+    }
+  }
+}
+
+.pag-item.prev-next > a {
+  background-color: #9c9c9c;
+
+  &:hover {
+    background-color: darken(#9c9c9c, 12%);
+  }
+
+  a {
+    text-decoration: none;
+  }
+}
