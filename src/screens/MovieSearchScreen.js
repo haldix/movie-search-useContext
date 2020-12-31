@@ -1,18 +1,22 @@
-import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { getMovie } from '../actions/movieActions';
-import { nextPage } from '../actions/movieActions';
+import React, { useState, useContext } from 'react';
 import MovieGrid from '../components/MovieGrid';
 import Pagination from '../components/Pagination';
 import Message from '../components/Message';
 import './styles/MovieSearchScreen.scss';
+import MovieContext from '../context/movie/movieContext';
 
 const MovieSearchScreen = () => {
   const [title, setTitle] = useState('');
 
-  const movieData = useSelector((state) => state.movieData);
-  const { loading, movies, keywords, message } = movieData;
-  const dispatch = useDispatch();
+  const movieContext = useContext(MovieContext);
+  const {
+    loading,
+    movies,
+    keywords,
+    message,
+    getMovie,
+    movieNextPage,
+  } = movieContext;
 
   const titleHandler = (e) => {
     const title = e.target.value;
@@ -21,7 +25,7 @@ const MovieSearchScreen = () => {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    dispatch(getMovie(title));
+    getMovie(title);
     setTitle('');
   };
 
@@ -40,7 +44,7 @@ const MovieSearchScreen = () => {
       {movies && movies.total_results === 0 && (
         <h2>No Results Found for {keywords.replace('+', ' ')}</h2>
       )}
-      {movies && movies.total_results !== 0 && (
+      {movies && movies.results.length !== 0 && (
         <>
           <h2>Search Results for {keywords.replace('+', ' ')}</h2>
           <MovieGrid movies={movies.results} />
@@ -51,7 +55,7 @@ const MovieSearchScreen = () => {
           keywords={keywords}
           total_pages={movies.total_pages}
           page={movies.page}
-          nextPage={nextPage}
+          nextPage={movieNextPage}
         />
       )}
     </div>

@@ -6,9 +6,9 @@ import {
   MOVIE_DETAILS_REQUEST,
   MOVIE_DETAILS_SUCCESS,
   MOVIE_DETAILS_FAIL,
-} from '../constants/movieConstants';
+} from '../../types/movieTypes';
 
-export const movieReducer = (state = { movie: {} }, { type, payload }) => {
+const movieReducer = (state, { type, payload }) => {
   switch (type) {
     case MOVIE_NEW_KEYWORDS:
       return { ...state, keywords: payload };
@@ -18,7 +18,6 @@ export const movieReducer = (state = { movie: {} }, { type, payload }) => {
       return {
         ...state,
         loading: false,
-        success: true,
         movies: payload,
       };
     case MOVIE_SEARCH_FAIL:
@@ -31,7 +30,6 @@ export const movieReducer = (state = { movie: {} }, { type, payload }) => {
       return {
         ...state,
         loading: false,
-        success: true,
         movie: payload,
       };
     case MOVIE_DETAILS_FAIL:
@@ -42,3 +40,5 @@ export const movieReducer = (state = { movie: {} }, { type, payload }) => {
       return state;
   }
 };
+
+export default movieReducer;

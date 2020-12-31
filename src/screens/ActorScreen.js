@@ -1,33 +1,31 @@
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { getActorDetails } from '../actions/actorActions';
+import React, { useEffect, useContext } from 'react';
+import ActorContext from '../context/actor/actorContext';
 import noPhoto from '../images/no-image-available.png';
 import format from 'date-fns/format';
 import './styles/ActorScreen.scss';
 
 const ActorScreen = ({ match }) => {
-  const actorData = useSelector((state) => state.actorData);
+  const actorContext = useContext(ActorContext);
 
   const {
     loading,
     error,
+    getActorDetails,
     actor: { biography, birthday, deathday, name, profile_path },
-  } = actorData;
+  } = actorContext;
 
   const formatDate = (date) => {
     let fdate = new Date(`${date} 00:00`);
-    console.log(date, fdate);
     return format(fdate, 'MMMM d, yyyy');
   };
 
   const baseUrl = 'https://image.tmdb.org/t/p/w500';
   const imgUrl = !profile_path ? noPhoto : `${baseUrl}${profile_path}`;
 
-  const dispatch = useDispatch();
-
   useEffect(() => {
-    dispatch(getActorDetails(match.params.id));
-  }, [dispatch, match]);
+    getActorDetails(match.params.id);
+    // eslint-disable-next-line
+  }, [match]);
 
   return (
     <div className='container'>

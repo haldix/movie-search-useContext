@@ -1,17 +1,17 @@
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { getMovieDetails } from '../actions/movieActions';
+import React, { useEffect, useContext } from 'react';
 import noPhoto from '../images/no-image-available.png';
 import './styles/MovieScreen.scss';
+import MovieContext from '../context/movie/movieContext';
 
 const MovieScreen = ({ match }) => {
-  const movieData = useSelector((state) => state.movieData);
+  const movieContext = useContext(MovieContext);
 
   const {
     loading,
     error,
+    getMovieDetails,
     movie: { overview, title, poster_path, backdrop_path, release_date },
-  } = movieData;
+  } = movieContext;
 
   const formatDate = (date) => {
     return date.slice(0, 4);
@@ -24,11 +24,10 @@ const MovieScreen = ({ match }) => {
       : noPhoto
     : `${baseUrl}${backdrop_path}`;
 
-  const dispatch = useDispatch();
-
   useEffect(() => {
-    dispatch(getMovieDetails(match.params.id));
-  }, [dispatch, match]);
+    getMovieDetails(match.params.id);
+    // eslint-disable-next-line
+  }, [match]);
 
   return (
     <div className='container'>

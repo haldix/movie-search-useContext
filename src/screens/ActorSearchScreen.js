@@ -1,18 +1,22 @@
-import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { getPerson } from '../actions/actorActions';
+import React, { useState, useContext } from 'react';
 import CardGrid from '../components/CardGrid';
 import Pagination from '../components/Pagination';
 import Message from '../components/Message';
-import { nextPage } from '../actions/actorActions';
 import './styles/ActorSearchScreen.scss';
+import ActorContext from '../context/actor/actorContext';
 
 const ActorSearchScreen = () => {
   const [name, setName] = useState('');
 
-  const actorData = useSelector((state) => state.actorData);
-  const { loading, person, keywords, message } = actorData;
-  const dispatch = useDispatch();
+  const actorContext = useContext(ActorContext);
+  const {
+    loading,
+    keywords,
+    person,
+    message,
+    getPerson,
+    personNextPage,
+  } = actorContext;
 
   const nameHandler = (e) => {
     const name = e.target.value;
@@ -21,7 +25,7 @@ const ActorSearchScreen = () => {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    dispatch(getPerson(name));
+    getPerson(name);
     setName('');
   };
 
@@ -40,7 +44,7 @@ const ActorSearchScreen = () => {
       {person && person.total_results === 0 && (
         <h2>No Results Found for {keywords.replace('+', ' ')}</h2>
       )}
-      {person && person.total_results !== 0 && (
+      {person && person.results.length !== 0 && (
         <>
           <h2>Search Results for {keywords.replace('+', ' ')}</h2>
           <CardGrid persons={person.results} />
@@ -51,7 +55,7 @@ const ActorSearchScreen = () => {
           keywords={keywords}
           total_pages={person.total_pages}
           page={person.page}
-          nextPage={nextPage}
+          nextPage={personNextPage}
         />
       )}
     </div>

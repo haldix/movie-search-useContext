@@ -6,9 +6,9 @@ import {
   ACTOR_DETAILS_REQUEST,
   ACTOR_DETAILS_SUCCESS,
   ACTOR_DETAILS_FAIL,
-} from '../constants/actorConstants';
+} from '../../types/actorTypes';
 
-export const actorReducer = (state = { actor: {} }, { type, payload }) => {
+const actorReducer = (state, { type, payload }) => {
   switch (type) {
     case ACTOR_NEW_KEYWORDS:
       return { ...state, keywords: payload };
@@ -40,3 +40,5 @@ export const actorReducer = (state = { actor: {} }, { type, payload }) => {
       return state;
   }
 };
+
+export default actorReducer;

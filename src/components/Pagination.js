@@ -1,10 +1,7 @@
 import React, { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
 import './styles/Pagination.scss';
 
 const Pagination = ({ total_pages, keywords, page, nextPage }) => {
-  const dispatch = useDispatch();
-
   const pageLinks = [];
   // value of  5 returns first 100 results from API, could use prop
   const numPages = total_pages < 6 ? total_pages : 5;
@@ -12,11 +9,7 @@ const Pagination = ({ total_pages, keywords, page, nextPage }) => {
   for (let i = 1; i <= numPages; i++) {
     let active = i === page ? 'active' : '';
     pageLinks.push(
-      <li
-        className='pag-item'
-        key={i}
-        onClick={() => dispatch(nextPage(keywords, i))}
-      >
+      <li className='pag-item' key={i} onClick={() => nextPage(keywords, i)}>
         <a href='#!' className={`${active}`}>
           {i}
         </a>
@@ -34,7 +27,7 @@ const Pagination = ({ total_pages, keywords, page, nextPage }) => {
         {page > 1 && (
           <li
             className='pag-item prev-next'
-            onClick={() => dispatch(nextPage(keywords, page - 1))}
+            onClick={() => nextPage(keywords, page - 1)}
           >
             <a href='#!'>PREV</a>
           </li>
@@ -43,7 +36,7 @@ const Pagination = ({ total_pages, keywords, page, nextPage }) => {
         {page < numPages && (
           <li
             className='pag-item prev-next'
-            onClick={() => dispatch(nextPage(keywords, page + 1))}
+            onClick={() => nextPage(keywords, page + 1)}
           >
             <a href='#!'>NEXT</a>
           </li>
